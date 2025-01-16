@@ -1,16 +1,22 @@
-import { type ExpoSQLiteDatabase, drizzle } from "drizzle-orm/expo-sqlite";
-import { openDatabaseSync } from "expo-sqlite/next";
-import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
-import type { SQLJsDatabase } from "drizzle-orm/sql-js";
+import { drizzle } from "drizzle-orm/op-sqlite";
+import {
+  type DB,
+  moveAssetsDatabase,
+  openSync,
+} from "@op-engineering/op-sqlite";
 
-import migrations from "./migrations/migrations";
+export const sqlite = openSync({
+  name: "local.db",
+  url: process.env.EXPO_PUBLIC_TURSO_DATABASE_URL!,
+  authToken: process.env.EXPO_PUBLIC_TURSO_AUTH_TOKEN!,
+  syncInterval: 1000,
+});
 
-const expoDb = openDatabaseSync("database.db", { enableChangeListener: true });
-export const db = drizzle(expoDb);
+try {
+  // Make the initial sync from the remote to the local database
+  sqlite.sync();
+} catch (e) {
+  console.log(e);
+}
 
-export const initialize = (): Promise<SQLJsDatabase | ExpoSQLiteDatabase> => {
-  return Promise.resolve(db);
-};
-export const useMigrationHelper = () => {
-  return useMigrations(db as ExpoSQLiteDatabase, migrations);
-};
+export const db = drizzle(sqlite);

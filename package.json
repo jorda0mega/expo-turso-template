@@ -14,14 +14,20 @@
     "web": "EXPO_USE_FAST_RESOLVER=1  expo start -c --web",
     "export": "expo export -p web",
     "format": "biome check --no-errors-on-unmatched --apply .",
-    "db:generate": "bun drizzle-kit generate",
-    "migrate": "bun ./db/migrate.ts",
-    "db:studio": "bun drizzle-kit studio"
+    "db:generate": "bun db generate",
+    "db:migrate": "bun db migrate",
+    "db:studio": "bun db studio",
+    "db:embed": "bun db/embed.ts",
+    "db:seed": "bun db/seed.ts",
+    "db": "bun drizzle-kit"
   },
   "dependencies": {
     "@bacons/text-decoder": "^0.0.0",
+    "@faker-js/faker": "^9.0.3",
     "@gorhom/bottom-sheet": "^4.6.1",
     "@hookform/resolvers": "^3.3.4",
+    "@libsql/client": "^0.14.0",
+    "@op-engineering/op-sqlite": "^9.2.3",
     "@paralleldrive/cuid2": "^2.2.2",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-alert-dialog": "^1.0.5",
@@ -36,12 +42,15 @@
     "@radix-ui/react-toggle": "^1.0.3",
     "@radix-ui/react-toggle-group": "^1.0.4",
     "@radix-ui/react-tooltip": "^1.0.7",
+    "@react-native-community/netinfo": "11.3.1",
     "@react-navigation/native": "^6.0.2",
     "@shopify/flash-list": "^1.6.3",
+    "@tanstack/react-query": "^5.59.15",
     "babel-plugin-inline-import": "^3.0.0",
+    "babel-plugin-transform-import-meta": "^2.2.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
-    "drizzle-orm": "0.31.2",
+    "drizzle-orm": "0.35.2",
     "drizzle-zod": "^0.5.1",
     "expo": "^51.0.0",
     "expo-dev-client": "~4.0.27",
@@ -57,7 +66,7 @@
     "expo-web-browser": "~13.0.3",
     "gh-pages": "^6.1.1",
     "lucide-react-native": "^0.314.0",
-    "nativewind": "^4.0.36",
+    "nativewind": "^4.1.6",
     "next-themes": "^0.3.0",
     "phosphor-react-native": "^2.0.0",
     "react": "18.2.0",
@@ -75,19 +84,23 @@
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.6",
-    "zustand": "^4.5.2"
+    "zustand": "^5.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.24.4",
     "@babel/runtime": "^7.24.4",
-    "@types/react": "18.2.0",
+    "@types/react": "~18.2.79",
     "@types/sql.js": "^1.4.9",
-    "drizzle-kit": "^0.22.8",
+    "drizzle-kit": "^0.26.2",
     "tailwindcss": "3.4.1",
     "typescript": "^5.4.5"
   },
   "trustedDependencies": [
     "tailwindcss",
-    "nativewind"
-  ]
+    "nativewind",
+    "esbuild"
+  ],
+  "op-sqlite": {
+    "libsql": true
+  }
 }
