@@ -7,8 +7,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   version: "1.0.0",
   orientation: "portrait",
   icon: "./assets/images/icon.png",
-  scheme: "ltstarter",
-  userInterfaceStyle: "dark",
+  scheme: "expostarter",
+  userInterfaceStyle: "automatic",
   runtimeVersion: {
     policy: "appVersion",
   },
@@ -37,7 +37,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   plugins: [["expo-router"], ["expo-asset", { assets: ["./assets/"] }]],
   experiments: {
     typedRoutes: true,
-    baseUrl: "/expo-local-first-template",
   },
   extra: {
     eas: {
@@ -45,4 +44,5 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     },
   },
   owner: "*",
+  newArchEnabled: true,
 });

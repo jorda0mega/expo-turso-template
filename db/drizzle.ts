@@ -5,7 +5,7 @@ import {
   openSync,
 } from "@op-engineering/op-sqlite";
 
-export const sqlite = openSync({
+export const remoteDb = openSync({
   name: "local.db",
   url: process.env.EXPO_PUBLIC_TURSO_DATABASE_URL!,
   authToken: process.env.EXPO_PUBLIC_TURSO_AUTH_TOKEN!,
@@ -14,9 +14,9 @@ export const sqlite = openSync({
 
 try {
   // Make the initial sync from the remote to the local database
-  sqlite.sync();
+  remoteDb.sync();
 } catch (e) {
-  console.log(e);
+  console.log("Error syncing database", e);
 }
 
-export const db = drizzle(sqlite);
+export const db = drizzle(remoteDb);
